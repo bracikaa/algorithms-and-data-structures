@@ -1,5 +1,4 @@
 function mergeSort(arr) {
-  debugger;
   if (arr.length <= 1) {
     return arr;
   } else {
