@@ -50,10 +50,71 @@ class SinglyLinkedList {
 
     return current;
   }
+
+  shift() {
+    if (!this.head) {
+      return undefined;
+    }
+
+    let currHead = this.head;
+    this.head = currHead.next;
+    this.length--;
+
+    if (this.length == 0) {
+      this.tail = null;
+    }
+
+    return currHead;
+  }
+
+  unshift(val) {
+    let newNode = new Node(val);
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      newNode.next = this.head;
+      this.head = newNode;
+    }
+
+    this.length++;
+    return this;
+  }
+
+  get(currIndex) {
+    if (currIndex < 0 || currIndex >= this.length) {
+      return null;
+    }
+
+    let counter = 0;
+    let currElement = this.head;
+    while (counter !== currIndex) {
+      currElement = currElement.next;
+      counter++;
+    }
+
+    return currElement;
+  }
+
+  set(index, value) {
+    let node = this.get(index);
+
+    if (!node) {
+      return false;
+    }
+
+    node.val = value;
+    return true;
+  }
 }
 
 let list = new SinglyLinkedList();
-list.push("HELLO");
-list.push("GOODBYE");
-list.push("POP THIS");
-list.pop();
+list.push("0");
+list.push("1");
+list.push("2");
+list.push("3");
+console.log(list.get(2));
+console.log(list.get(-2));
+console.log(list.get(22));
+console.log(list.set(6, "FAIL"));
+console.log(list.set(1, "SET VALUE"));
