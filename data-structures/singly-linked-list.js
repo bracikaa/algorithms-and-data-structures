@@ -112,15 +112,39 @@ class SinglyLinkedList {
     if (index === this.length) return this.push(val);
     if (index === 0) return this.unshift(); 
   }
+
+  remove(index) {
+    if(index < 0 || index >= this.length) {
+      return undefined;
+    }
+
+    if(index === 0) return this.shift();
+    if(index === this.length - 1) return this.pop();
+    
+
+    let lastNode = this.get(index - 1);
+    let deletedNode = lastNode.next;
+    lastNode.next = deletedNode.next;
+    this.length--;
+    return deletedNode;
+  }
+
+  reverse(){
+    let currNode = this.head;
+    this.head = this.tail;
+    this.tail = currNode; 
+    let next;
+    let prev = null;
+
+    for(let i = 0; i < this.length; i++) {
+      next = currNode.next;
+      currNode.next = prev;
+      prev = currNode;
+      currNode = next;
+    }
+
+
+    return this;
+  }
 }
 
-let list = new SinglyLinkedList();
-list.push("0");
-list.push("1");
-list.push("2");
-list.push("3");
-console.log(list.get(2));
-console.log(list.get(-2));
-console.log(list.get(22));
-console.log(list.set(6, "FAIL"));
-console.log(list.set(1, "SET VALUE"));
