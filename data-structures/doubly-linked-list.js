@@ -107,13 +107,33 @@ class DoublyLinkedList {
   }
 
   set(index, val) {
-    if(this.get(index)) {
-      let foundNode = this.get(index);
+    let foundNode = this.get(index);
+    if(foundNode) {
       foundNode.val = val;
       return true;
     } else {
       return false;
     }
+  }
+
+  insert(index, val) {
+    if(index < 0 || index > this.length) {
+      return false;
+    }
+
+    if(index == 0) return !!this.unshift(val);
+    if(index == this.length) return !!this.push(val);
+
+    let foundNode = this.get(index - 1);
+    let newNode = new Node(val);
+
+    newNode.prev = foundNode;
+    newNode.next = foundNode.next;
+    foundNode.next.prev = newNode;
+    foundNode.next = newNode;
+
+    this.length++;
+    return true;
   }
 }
 
@@ -123,4 +143,5 @@ list.unshift(1);
 list.unshift(0);
 list.push(3);
 list.push(4);
-list.set(3, "update");
+list.insert(2, "update");
+console.log(list);
