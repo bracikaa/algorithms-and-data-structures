@@ -1,27 +1,23 @@
-function getDigit(num, i) {
-  return Math.floor(Math.abs(num) / Math.pow(10, i)) % 10;
+function getDigitAtPlace(num, i) {
+  return num.toString().split("").reverse()[i];
 }
 
-function countDigits(num) {
-  return Math.floor(Math.log10(Math.abs(num))) + 1;
-}
-
-function mostDigits(nums) {
+function getBiggestDigitCount(nums) {
   let maxDigits = 0;
   for (let i = 0; i < nums.length; i++) {
-    maxDigits = Math.max(maxDigits, countDigits(nums[i]));
+    maxDigits = Math.max(maxDigits, nums[i].toString().length);
   }
 
   return maxDigits;
 }
 
 function radixSort(nums) {
-  let maxDigits = mostDigits(nums);
+  let maxDigits = getBiggestDigitCount(nums);
   for (let i = 0; i < maxDigits; i++) {
     let bucketArray = Array.from({ length: 10 }, () => []);
     for (let j = 0; j < nums.length; j++) {
         debugger;
-        let digit = getDigit(nums[j], i);
+        let digit = getDigitAtPlace(nums[j], i);
         bucketArray[digit].push(nums[j]);
     }
 
